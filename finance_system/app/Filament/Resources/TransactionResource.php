@@ -4,14 +4,25 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\TransactionResource\Pages;
 use App\Filament\Resources\TransactionResource\RelationManagers;
+use App\Models\category;
 use App\Models\Transaction;
 use Filament\Forms;
+use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Models\User;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Infolists\Infolist;
+use Illuminate\Support\Facades\Auth;
+
 
 class TransactionResource extends Resource
 {
@@ -19,25 +30,87 @@ class TransactionResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-currency-dollar';
     protected static ?string $navigationGroup = 'Functions';
+    protected static ?int $navigationSort = 1;
+
+    
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+
+                Section::make()
+                ->schema([
+
+                    Select::make('user_id')
+                    ->options(User::all()->pluck('name', 'id'))  // Populate options with User names and IDs
+                    ->default(fn () => auth()->user()?->id) // Set the default value to the authenticated user's ID
+                    // ->hidden()  // Keep the field hidden from the user
+                    ->required(),
+                    
+                    TextInput::make('amount')
+                    ->label('Amount')
+                    ->numeric()
+                    // ->helperText('Please Enter Amount')
+                    ->placeholder(placeholder: '19.99')
+                    ->required(),
+
+                    DateTimePicker::make('transaction_date')
+                    ->label('Transaction Date')   // Label for the field
+                    ->required()                  // Makes the field required
+                    ->format('Y-m-d')              // Display format to show only the date (no time)
+                    ->placeholder('YYYY-MM-DD'),
+                    
+                    Select::make('category_id')
+                    ->label('Category')
+                    ->options(\App\Models\category::all()->pluck('name', 'id'))
+                    // ->default(auth()->id())
+                    // ->hidden()
+                    ->required(),
+
+                    Textarea::make('description')
+                    ->label('Description')
+                    ->maxLength(1000)        // Optional: Set a maximum character length for the description
+                    ->helperText('Provide a brief description of the transaction.') // Optional: Helper text
+                    ->placeholder('Enter transaction details here...') // Optional: Placeholder text
+                    ->columnSpan(3)
+                    ->rows(4),
+
+                    
+                    
+                    ])->columns(3)
+
+                
             ]);
     }
 
     public static function table(Table $table): Table
     {
+        
         return $table
+            
+
             ->columns([
-                //
+                TextColumn::make('amount')
+                    ->label('Amount')
+                    ->money()
+                    ->sortable(),
+                TextColumn::make('transaction_date')
+                    ->label('Transaction Date')
+                    ->numeric()
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('category.name')
+                    // ->relationship('category','name')
+                    ->label('Category')
+                    ->sortable()
+                    ->searchable()
             ])
             ->filters([
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
@@ -45,6 +118,9 @@ class TransactionResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
+
+            
+    
     }
 
     public static function getRelations(): array

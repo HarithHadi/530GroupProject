@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
     /**
@@ -21,6 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -44,5 +44,38 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        // Automatically set the role to 'user' if not set
+        static::creating(function ($user) {
+            if (!$user->role) {
+                $user->role = 'user'; // Set default role
+            }
+        });
+
+        static::created(function ($user) {
+            category::create(['name' => 'Entertainment']);
+            category::create(['name' => 'Food & Beverages']);
+            category::create(['name' => 'Utilities']);
+            category::create(['name' => 'Shopping']);
+
+        });
+    }
+
+
+    public function transaction():HasMany
+    {
+        return $this->hasMany(transaction::class);
+    }
+    public function category():HasMany
+    {
+        return $this->hasMany(category::class);
     }
 }

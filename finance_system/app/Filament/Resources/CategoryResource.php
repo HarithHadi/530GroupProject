@@ -19,6 +19,7 @@ class CategoryResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-folder';
     protected static ?string $navigationGroup = 'Functions';
+    protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
     {
@@ -37,9 +38,6 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user_id')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')

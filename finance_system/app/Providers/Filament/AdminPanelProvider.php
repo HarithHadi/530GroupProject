@@ -23,10 +23,12 @@ class AdminPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
+            ->brandName("'heroicon-o-currency-dollar'")
             ->default()
             ->id('admin')
             ->path('admin')
             ->login()
+            ->registration()
             ->colors([
                 'primary' => Color::Green,
             ])
