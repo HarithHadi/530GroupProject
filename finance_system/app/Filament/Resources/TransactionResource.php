@@ -23,6 +23,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Infolists\Infolist;
 use Illuminate\Support\Facades\Auth;
 
+use function Laravel\Prompts\table;
 
 class TransactionResource extends Resource
 {
@@ -89,6 +90,16 @@ class TransactionResource extends Resource
         
         return $table
             
+            // ->query(function (Builder $query){
+            //     // $user = DB::table('users')->where('user_id', auth()->id());
+            //     // dd(auth()->id());
+            //     return $query->where('user_id', auth()->id());
+            // })
+
+            ->modifyQueryUsing(function (Builder $query) { 
+
+                return $query->where('user_id', auth()->id()); 
+           })
 
             ->columns([
                 TextColumn::make('amount')
@@ -138,4 +149,6 @@ class TransactionResource extends Resource
             'edit' => Pages\EditTransaction::route('/{record}/edit'),
         ];
     }
+
+   
 }
