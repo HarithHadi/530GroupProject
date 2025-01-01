@@ -72,6 +72,7 @@ class BillsResource extends Resource
                         // ->options($values)
                         ->required(),
                     Forms\Components\Textarea::make('description')
+                        ->label('Date')
                         ->columnSpanFull(),
                         ])
                 ])->columns(3),
@@ -104,21 +105,30 @@ class BillsResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+
+            ->modifyQueryUsing(function (Builder $query) { 
+                return $query->where('user_id', auth()->id()); 
+            })
+            
             ->columns([
-                Tables\Columns\TextColumn::make('user_id')
-                    ->numeric()
-                    ->sortable(),
             
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('amount')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('frequency'),
+
+                Tables\Columns\TextColumn::make('description')
+                    ->label('Date')
+                    ->searchable(),
+
+                Tables\Columns\TextColumn::make('frequency')
+                ->searchable(),
+
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->date()
+                    ->sortable(),
+                    // ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
