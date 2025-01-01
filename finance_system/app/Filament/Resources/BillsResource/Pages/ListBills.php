@@ -5,6 +5,7 @@ namespace App\Filament\Resources\BillsResource\Pages;
 use App\Filament\Resources\BillsResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use PhpParser\Builder;
 
 class ListBills extends ListRecords
 {
@@ -15,5 +16,9 @@ class ListBills extends ListRecords
         return [
             Actions\CreateAction::make(),
         ];
+    }
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->where('user_id', auth()->user);
     }
 }
