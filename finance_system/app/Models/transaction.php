@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\Transactionstate;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -29,4 +30,8 @@ class transaction extends Model
     {
         return $query->where('user_id',auth()->id());
     }
+
+    protected $casts = [
+        'category' =>Transactionstate::class
+    ];
 }

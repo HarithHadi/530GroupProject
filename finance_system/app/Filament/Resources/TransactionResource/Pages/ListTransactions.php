@@ -5,6 +5,8 @@ namespace App\Filament\Resources\TransactionResource\Pages;
 use App\Filament\Resources\TransactionResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Support\Contracts\HasIcon;
+use Filament\Support\Contracts\HasLabel;
 use PhpParser\Builder;
 
 class ListTransactions extends ListRecords
@@ -22,4 +24,8 @@ class ListTransactions extends ListRecords
     {
         return parent::getEloquentQuery()->where('user_id', auth()->user);
     }
+    /**
+     * @inheritDoc
+     */
+    
 }

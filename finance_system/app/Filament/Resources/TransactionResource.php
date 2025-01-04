@@ -22,7 +22,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Infolists\Infolist;
 use Illuminate\Support\Facades\Auth;
-
+use App\Filament\Resources\BladeHeroicons;
 use function Laravel\Prompts\table;
 
 class TransactionResource extends Resource
@@ -90,11 +90,6 @@ class TransactionResource extends Resource
         
         return $table
             
-            // ->query(function (Builder $query){
-            //     // $user = DB::table('users')->where('user_id', auth()->id());
-            //     // dd(auth()->id());
-            //     return $query->where('user_id', auth()->id());
-            // })
 
             ->modifyQueryUsing(function (Builder $query) { 
 
@@ -116,6 +111,18 @@ class TransactionResource extends Resource
                     ->label('Category')
                     ->sortable()
                     ->searchable()
+                    ->badge()
+                    
+                    
+                    
+                    // ->formatStateUsing(function (string $state) {
+                    //     $icons = [
+                    //         'Food & Beverages' => '<x-heroicon-tv class="w-6 h-6" /> Food & Beverages', // Replace with the actual category name and desired icon
+                    //         'Transport' => '🚗',
+                    //         'Shopping' => '🛍️',
+                    //     ];
+                    //     return $icons[$state] ?? e($state);
+                    // })
             ])
             ->filters([
                 //

@@ -23,6 +23,7 @@ class AdminPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
+        
             ->brandName("'heroicon-o-currency-dollar'")
             ->default()
             ->id('admin')
@@ -32,6 +33,7 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Green,
                 'info' => Color::Blue,
+                'my-custom-color' => '#336BFF'
                 // 'gray' => Color::Gray
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
