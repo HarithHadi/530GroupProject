@@ -92,5 +92,6 @@ class testChartWidget extends ChartWidget
             'cutout' => '80%', // Adjust this value to make the doughnut thinner (higher percentage = thinner)
         ];
     }
+    //test
 
 }
