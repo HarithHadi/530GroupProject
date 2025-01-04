@@ -80,22 +80,6 @@ class testChartWidget extends ChartWidget
     }
 
 
-    // public function kirakira($data) : array
-    // {
-    //     $counter = [];
-    //     $temp = [];
-    //     foreach($data as $key => $value) {
-    //         // Check if category_id is already in the $temp array (to track encountered category_ids)
-    //         if (!in_array($value, $temp)) {
-    //             // If it's a new category_id, add it to the $temp array and initialize counter
-    //             $temp[] = $value;
-    //             $counter[$value] = 1;  // Initialize counter for this category_id
-    //         } else {
-    //             // If category_id is already encountered, increment the counter for that category_id
-    //             $counter[$value]++;
-    //         }
-    //     }
-    // }
 
     protected function getType(): string
     {
