@@ -123,7 +123,8 @@ class BillsResource extends Resource
                     ->searchable(),
 
                 Tables\Columns\TextColumn::make('frequency')
-                ->searchable(),
+                    ->searchable()
+                    ->badge(),
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->date()

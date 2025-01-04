@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use PhpParser\Builder;
 use Filament\Support\Contracts\HasLabel;
-use Finance_system\App\Enums\BillSatus;
+use App\Enums\BillSatus;
 
 class bills extends Model
 {
@@ -35,7 +35,7 @@ class bills extends Model
     }
 
     protected $casts = [
-        'status' =>BillSatus::class
+        'frequency' =>BillSatus::class
     ];   
 
 
