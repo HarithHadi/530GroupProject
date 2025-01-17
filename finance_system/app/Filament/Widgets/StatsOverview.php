@@ -12,12 +12,12 @@ class StatsOverview extends BaseWidget
 
     protected function getStats(): array
     {
-        // Calculate the total daily bills
+        
         $totalDaily = Bills::where('frequency', 'daily')->sum('amount');
         $totalMonthly = Bills::where('frequency', 'monthly')->sum('amount');
         $totalYearly = Bills::where('frequency', 'yearly')->sum('amount');
 
-        // Determine the color, description, and icon for daily bills
+        
         $dailyColor = 'success'; // Default to green
         $dailyIcon = 'heroicon-m-arrow-trending-up'; // Default icon
         if ($totalDaily > 10 && $totalDaily <= 50) {
@@ -32,7 +32,7 @@ class StatsOverview extends BaseWidget
             $dailyDescription = 'Your daily spending is within a safe range';
         }
 
-        // Determine the color, description, and icon for monthly bills
+        
         $monthlyColor = 'success'; // Default to green
         $monthlyIcon = 'heroicon-m-arrow-trending-up'; // Default icon
         if ($totalMonthly > 50 && $totalMonthly <= 100) {
@@ -47,7 +47,7 @@ class StatsOverview extends BaseWidget
             $monthlyDescription = 'Your monthly spending is under control';
         }
 
-        // Determine the color, description, and icon for yearly bills
+        
         $yearlyColor = 'success'; // Default to green
         $yearlyIcon = 'heroicon-m-arrow-trending-up'; // Default icon
         if ($totalYearly > 500 && $totalYearly <= 1000) {

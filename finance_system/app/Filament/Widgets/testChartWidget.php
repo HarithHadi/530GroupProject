@@ -35,7 +35,7 @@ class testChartWidget extends ChartWidget
         //loop through each transsaction to count categories
         foreach ($transactions as $transaction)
         {
-            // Count how many transactions belong to each category
+            
             if (!isset($categoryCounts[$transaction->category_id])) //if $categoryCount[1] doesnt exist it will make categoryCounts[1] = 1
             {
                 $categoryCounts[$transaction->category_id] = 1;
@@ -87,7 +87,8 @@ class testChartWidget extends ChartWidget
     protected function getOptions(): array
     {
         return [
-            'cutout' => '80%', // Adjust this value to make the doughnut thinner (higher percentage = thinner)
+            'cutout' => '80%',
+            // Adjust this value to make the doughnut thinner (higher percentage = thinner)
         ];
     }
     //test
