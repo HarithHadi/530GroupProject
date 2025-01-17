@@ -24,7 +24,7 @@ class AdminPanelProvider extends PanelProvider
     {
         return $panel
         
-            ->brandName("'heroicon-o-currency-dollar'")
+            ->brandName("FMS")
             ->default()
             ->id('admin')
             ->path('admin')
@@ -36,6 +36,7 @@ class AdminPanelProvider extends PanelProvider
                 'my-custom-color' => '#336BFF'
                 // 'gray' => Color::Gray
             ])
+            ->favicon('images/Logo.png')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([

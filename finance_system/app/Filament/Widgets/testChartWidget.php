@@ -15,9 +15,7 @@ class testChartWidget extends ChartWidget
 {
     protected static ?string $heading = 'Chart';
 
-    protected int | string | array $columnSpan = 1;
-
-    protected static int $borderWidth = 1;
+    protected static ?int $sort = 1;
 
     public static function getEloquentQuery(): Builder
     {

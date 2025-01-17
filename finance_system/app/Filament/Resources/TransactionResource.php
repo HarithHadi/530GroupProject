@@ -43,11 +43,11 @@ class TransactionResource extends Resource
                 Section::make()
                 ->schema([
 
-                    Select::make('user_id')
-                    ->options(User::all()->pluck('name', 'id'))  // Populate options with User names and IDs
-                    ->default(fn () => auth()->user()?->id) // Set the default value to the authenticated user's ID
-                    // ->hidden()  // Keep the field hidden from the user
-                    ->required(),
+                    // Select::make('user_id')
+                    // ->options(User::all()->pluck('name', 'id'))  // Populate options with User names and IDs
+                    // ->default(fn () => auth()->user()?->id) // Set the default value to the authenticated user's ID
+                    // // ->hidden()  // Keep the field hidden from the user
+                    // ->required(),
                     
                     TextInput::make('amount')
                     ->label('Amount')
