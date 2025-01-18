@@ -32,6 +32,8 @@ class testChartWidget extends ChartWidget
 
         $transactions = Transaction::where('user_id', auth()->id())->get();
 
+        $total_transactions = $transactions->count();
+
         //loop through each transsaction to count categories
         foreach ($transactions as $transaction)
         {
@@ -56,7 +58,9 @@ class testChartWidget extends ChartWidget
         // dd($categoryCounts);
         foreach ($categoryCounts as $categoryId =>$count){
             // Assign the category name, count, and color
-            $labels[] = $categoryName[$categoryId];
+
+            $percentage = ($count / $total_transactions) * 100;
+            $labels[] = $categoryName[$categoryId] . ' (' . round($percentage, 2) . '%)';
             $data[] = $count;
             $backgroundColor[] = $colors[$colorIndex % count($colors)];
             $colorIndex++; 

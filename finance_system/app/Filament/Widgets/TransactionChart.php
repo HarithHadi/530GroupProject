@@ -7,6 +7,7 @@ use Filament\Forms\Components\Field;
 use Filament\Widgets\ChartWidget;
 use Flowframe\Trend\Trend;
 use Flowframe\Trend\TrendValue;
+use Illuminate\Support\Facades\Auth;
 use PhpParser\Builder;
 
 class TransactionChart extends ChartWidget
@@ -24,14 +25,29 @@ class TransactionChart extends ChartWidget
 
     protected function getData(): array
     {
-        $data = Trend::model(transaction::class)
-        ->dateColumn('transaction_date')
-        ->between(
-            start: now()->startOfYear(),
-            end: now()->endOfYear(),
-        )
-        ->perMonth()
-        ->sum('amount');
+        $userId = Auth::id();
+
+        $transactions = Transaction::where('user_id', auth()->id())->get();
+        
+        // $data = Trend::model(transaction::where('user_id',$userId))
+        // ->dateColumn('transaction_date')
+        // // ->filter(fn ($query) => $query->where('user_id', Auth::id()))
+        // ->between(
+        //     start: now()->startOfYear(),
+        //     end: now()->endOfYear(),
+        // )
+        // ->perMonth()
+        // ->sum('amount');
+
+
+        $data = Trend::query(transaction::query()->where('user_id', $userId) )
+            ->dateColumn('transaction_date')
+            ->between(
+                start: now()->startOfYear(),
+                end: now()->endOfYear(),
+            )
+            ->perMonth()
+            ->sum('amount');
         // ->count();
 
         // dd($data);

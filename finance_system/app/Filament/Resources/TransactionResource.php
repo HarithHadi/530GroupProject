@@ -33,7 +33,12 @@ class TransactionResource extends Resource
     protected static ?string $navigationGroup = 'Functions';
     protected static ?int $navigationSort = 1;
 
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        $data['user_id'] = auth()->id();
     
+        return $data;
+    }
 
     public static function form(Form $form): Form
     {
@@ -46,8 +51,9 @@ class TransactionResource extends Resource
                     // Select::make('user_id')
                     // ->options(User::all()->pluck('name', 'id'))  // Populate options with User names and IDs
                     // ->default(fn () => auth()->user()?->id) // Set the default value to the authenticated user's ID
-                    // // ->hidden()  // Keep the field hidden from the user
+                    // ->hidden()  // Keep the field hidden from the user
                     // ->required(),
+                    // // ->hidden(),
                     
                     TextInput::make('amount')
                     ->label('Amount')
@@ -79,7 +85,7 @@ class TransactionResource extends Resource
 
                     
                     
-                    ])->columns(3)
+                    ])->columns(3),
 
                 
             ]);

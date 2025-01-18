@@ -60,13 +60,7 @@ class User extends Authenticatable
             }
         });
 
-        static::created(function ($user) {
-            category::create(['name' => 'Entertainment']);
-            category::create(['name' => 'Food & Beverages']);
-            category::create(['name' => 'Utilities']);
-            category::create(['name' => 'Shopping']);
-
-        });
+        
     }
 
 

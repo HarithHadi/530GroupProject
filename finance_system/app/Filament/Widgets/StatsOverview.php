@@ -3,19 +3,41 @@
 namespace App\Filament\Widgets;
 
 use App\Models\bills;
+use App\Models\transaction;
+use Illuminate\Support\Facades\Auth;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
+use PhpParser\Builder;
+
 
 class StatsOverview extends BaseWidget
 {
     protected static ?int $sort = 1;
 
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+        ->where('is_active', true)
+        ->where('user_id', Auth::id());
+    }
+
     protected function getStats(): array
     {
+        // $Bills = bills::where('user_id', auth()->id())->get();
+        // dd($Bills);
+        $userId = Auth::id();
         
-        $totalDaily = Bills::where('frequency', 'daily')->sum('amount');
-        $totalMonthly = Bills::where('frequency', 'monthly')->sum('amount');
-        $totalYearly = Bills::where('frequency', 'yearly')->sum('amount');
+        $totalDaily = bills::where('user_id', $userId)
+        ->where('frequency', 'daily')
+        ->sum('amount');
+
+        $totalMonthly = bills::where('user_id', $userId)
+        ->where('frequency', 'monthly')
+        ->sum('amount');
+
+        $totalYearly = Bills::where('user_id', $userId)
+        ->where('frequency', 'yearly')
+        ->sum('amount');
 
         
         $dailyColor = 'success'; // Default to green
@@ -70,13 +92,13 @@ class StatsOverview extends BaseWidget
                 ->color($dailyColor),
 
             // Stat for monthly bills
-            Stat::make('Total Monthly Bills', 'RM ' . number_format(Bills::where('frequency', 'monthly')->sum('amount'), 2))
+            Stat::make('Total Monthly Bills', 'RM ' . number_format($totalMonthly, 2))
                 ->description($monthlyDescription)
                 ->descriptionIcon($monthlyIcon)
                 ->color($monthlyColor),
 
             // Stat for annual bills
-            Stat::make('Total Annual Bills', 'RM ' . number_format(Bills::where('frequency', 'yearly')->sum('amount'), 2))
+            Stat::make('Total Annual Bills', 'RM ' . number_format($totalYearly, 2))
                 ->description($yearlyDescription)
                 ->descriptionIcon(  $yearlyIcon)
                 ->color($yearlyColor),
