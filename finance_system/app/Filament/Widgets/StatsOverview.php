@@ -104,4 +104,6 @@ class StatsOverview extends BaseWidget
                 ->color($yearlyColor),
         ];
     }
+
+    
 }
