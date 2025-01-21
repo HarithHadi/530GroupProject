@@ -79,3 +79,4 @@ class TransactionChart extends ChartWidget
         return '100%'; // Make it take the full width
     }
 }
+// test
