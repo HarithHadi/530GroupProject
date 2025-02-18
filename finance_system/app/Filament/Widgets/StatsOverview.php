@@ -42,7 +42,7 @@ class StatsOverview extends BaseWidget
         
         $dailyColor = 'success'; // Default to green
         $dailyIcon = 'heroicon-m-arrow-trending-up'; // Default icon
-        if ($totalDaily > 10 && $totalDaily <= 50) {
+        if ($totalDaily > 10 && $totalDaily <= 50) { //
             $dailyDescription = 'Spending a little too much';
             $dailyColor = 'warning'; // Yellow
             $dailyIcon = 'heroicon-o-exclamation-circle'; // Warning icon

@@ -68,7 +68,7 @@ class testChartWidget extends ChartWidget
         }
         
         // Output the final $counter array to inspect the counts for each category_id
-        // dd($counter);
+        // dd($data);
         
         return [
             'datasets' =>[

@@ -113,22 +113,11 @@ class TransactionResource extends Resource
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('category.name')
-                    // ->relationship('category','name')
                     ->label('Category')
                     ->sortable()
                     ->searchable()
                     ->badge()
                     
-                    
-                    
-                    // ->formatStateUsing(function (string $state) {
-                    //     $icons = [
-                    //         'Food & Beverages' => '<x-heroicon-tv class="w-6 h-6" /> Food & Beverages', // Replace with the actual category name and desired icon
-                    //         'Transport' => '🚗',
-                    //         'Shopping' => '🛍️',
-                    //     ];
-                    //     return $icons[$state] ?? e($state);
-                    // })
             ])
             ->filters([
                 //
